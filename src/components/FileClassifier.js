@@ -20,6 +20,12 @@ export default function FileClassifier({ files }) {
     return () => clearInterval(interval);
   }, [loading]);
 
+  useEffect(() => {
+    if (!uploadedFile && fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, [uploadedFile]);
+
   const handleFileUpload = (e) => {
     setUploadedFile(e.target.files[0]);
     setSelectedPath("");
@@ -28,9 +34,6 @@ export default function FileClassifier({ files }) {
   const handleDropdownChange = (e) => {
     setSelectedPath(e.target.value);
     setUploadedFile(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
   };
 
   const handleClassify = async () => {
